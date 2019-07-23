@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Pyschic Game</title>
+</head>
+
+<body>
+    <h1>The Pyschic Game</h1>
+    <h2>guess what letter I'm Thinking of</h2>
+    <div>
+        <p id="wins-text"> wins:</p>
+        <p id="losses-text">Losses: </p>
+        <p id="userchoice-text"> Your Gusses: </p>
+        <p id="chances"> Remaing Chances: </p>
+
+    </div>
+
+    <script type="text/javascript">
+        var letterList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"]
+
+        var computerChoices = function() {
+            computerLetter = letterList[Math.floor(Math.random() * letterList.length)];
+            console.log(computerLetter);
+
+        }
+
+        computerChoices();
+
+
+        var wins = 0;
+        var losses = 0;
+        var chances = 9;
+        var userGuesse = [];
+
+
+        document.onkeyup = function(event) {
+            if (event.keyCode >= 65 && event.keyCode <= 90) {
+
+
+                // var userGuess = userGuesse;
+                // if key pressed === meta
+                // don't push the key
+                console.log(event);
+                var pressedLetter = event.key;
+                if (!userGuesse.includes(pressedLetter)) {
+                    userGuesse.push(pressedLetter);
+                    chances--;
+                }
+
+
+
+
+
+                if (pressedLetter === computerLetter) {
+                    wins++;
+                    chances = 9;
+
+                    computerChoices();
+                }
+
+                if (chances === 0) {
+                    losses++;
+                    chances = 9;
+                    userGuesse.length = 0;
+
+
+                }
+                document.getElementById("userchoice-text").innerHTML = "Your Gusses:" + userGuesse;
+                document.getElementById("wins-text").innerHTML = "Wins: " + wins;
+                document.getElementById("losses-text").innerHTML = "losses: " + losses;
+
+                document.getElementById("chances").innerHTML = "Remaing Chances: " + chances;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
